@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Please unlock  ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', cursive
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(#ff9a9e, #fad0c4);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .screen {
+      background: white;
+      width: 90%;
+      max-width: 360px;
+      padding: 25px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, .3);
+      animation: pop 1s ease;
+    }
+
+    input,
+    button {
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #ff3f6c;
+      color: white;
+      cursor: pointer
+    }
+
+    .shake {
+      animation: shake .4s;
+    }
+
+    @keyframes shake {
+      0% {
+        transform: translateX(0)
+      }
+
+      25% {
+        transform: translateX(-5px)
+      }
+
+      50% {
+        transform: translateX(5px)
+      }
+
+      75% {
+        transform: translateX(-5px)
+      }
+
+      100% {
+        transform: translateX(0)
+      }
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    /* Night */
+    .night {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #0b1d3a, #000);
+      display: none;
+      z-index: -1;
+    }
+
+    /* Stars */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: .3
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    /* Hearts */
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1
+      }
+
+      100% {
+        transform: translateY(-800px);
+        opacity: 0
+      }
+    }
+
+    /* Typing */
+    .typing {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #ff3f6c;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink .7s infinite;
+    }
+
+    @keyframes typing {
+      to {
+        width: 100%
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent
+      }
+    }
+
+    /* Ring */
+    .ring {
+      font-size: 70px;
+      animation: ringPop 1s ease forwards;
+    }
+
+    @keyframes ringPop {
+      0% {
+        transform: scale(0)
+      }
+
+      100% {
+        transform: scale(1.2)
+      }
+    }
+
+    /* Chat */
+    .chat {
+      background: #dcf8c6;
+      padding: 12px;
+      border-radius: 15px;
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    /* Image */
+    img {
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <audio id="bgSong" style="display:none;" loop>
+    <source src="song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    document.addEventListener('click', function () {
+      const audio = document.getElementById('bgSong');
+      if (audio) {
+        audio.play().catch(e => console.log("Audio play error:", e));
+      }
+    }, { once: true });
+  </script>
+
+  <div class="night" id="night"></div>
+
+  <div class="screen" id="lock">
+    <h2>🔐 Please unlock 💖</h2>
+    <input type="password" id="pass" placeholder="Enter secret password">
+    <button onclick="unlock()">Unlock ❤️</button>
+    <p id="hint"></p>
+  </div>
+
+  <div class="screen" id="main" style="display:none">
+    <h2>YUVA ❤️ HEMAPRIYA</h2>
+
+    <p class="typing">Happy Valentine’s Day! ✨💌💕</p>
+
+    <p class="typing" style="animation-delay:4s">
+      Love You alagaa!🌍🌙❤️
+    </p>
+
+    <img src="couple.jpg">
+
+    <div class="ring">💍</div>
+
+    <h3> Will you marry me? 😘</h3>
+
+    <div class="chat">
+      💬 Yuva: Stay Forever? ❤️
+      <br>💖 Hemapriya: Always yours~Forever Us No Matter What!🖖💎🧿
+	
+    </div>
+  </div>
+
+  <script>
+    function unlock() {
+      const p = document.getElementById("pass");
+      const h = document.getElementById("hint");
+      if (p.value === "yuvahema") {
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("main").style.display = "block";
+        document.getElementById("night").style.display = "block";
+        stars(); fireworks();
+      } else {
+        h.innerText = "Hint: Mudinja kandupidi 😉";
+        p.classList.add("shake");
+        setTimeout(() => p.classList.remove("shake"), 400);
+      }
+    }
+
+    function stars() {
+      for (let i = 0; i < 120; i++) {
+        let s = document.createElement("div");
+        s.className = "star";
+        s.style.left = Math.random() * innerWidth + "px";
+        s.style.top = Math.random() * innerHeight + "px";
+        night.appendChild(s);
+      }
+    }
+
+    setInterval(() => {
+      let h = document.createElement("div");
+      h.className = "heart";
+      h.innerHTML = "❤️";
+      h.style.left = Math.random() * innerWidth + "px";
+      h.style.bottom = "0";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6000);
+    }, 300);
+
+    function fireworks() {
+      setInterval(() => {
+        let f = document.createElement("div");
+        f.style.position = "absolute";
+        f.style.width = "5px";
+        f.style.height = "5px";
+        f.style.background = "gold";
+        f.style.borderRadius = "50%";
+        f.style.left = Math.random() * innerWidth + "px";
+        f.style.top = Math.random() * innerHeight + "px";
+        f.style.animation = "explode 1s forwards";
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 1000);
+      }, 300);
+    }
+  </script>
+
+</body>
+
+</html>
